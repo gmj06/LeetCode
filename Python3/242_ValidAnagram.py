@@ -26,8 +26,12 @@ s and t consist of lowercase English letters.
 
 """
 
+from collections import Counter
+
+
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
+    # Approach 1
+    def isAnagram_v1(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
 
@@ -35,30 +39,33 @@ class Solution:
         t_dict = {}
 
         # creating a dictionary for all characters in string s
-        #Approach 1
-        # for s_char in s:
-        #     if s_char in s_dict:
-        #         s_dict[s_char] += 1
-        #     else:
-        #         s_dict[s_char] = 1
+        for s_char in s:
+            if s_char in s_dict:
+                s_dict[s_char] += 1
+            else:
+                s_dict[s_char] = 1
 
-        #Approach 2
-        # for char in s:
-        #     s_dict[char] = 1 + s_dict.get(char, 0)
-
+    
         # creating a dictionary for all characters in string t
-        #Approach 1
-        # for t_char in t:
-        #     if t_char in t_dict:
-        #         t_dict[t_char] += 1
-        #     else:
-        #         t_dict[t_char] = 1
+        for t_char in t:
+            if t_char in t_dict:
+                t_dict[t_char] += 1
+            else:
+                t_dict[t_char] = 1
 
-        #Approach 2
-        # for char in t:
-        #     t_dict[char] = 1 + t_dict.get(char, 0)
 
-        #Approach 3
+        return s_dict == t_dict
+    
+
+    # Approach 2
+    def isAnagram_v2(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        s_dict = {}
+        t_dict = {}
+
+    
         # get method in dictionary gives default value specified instead of raising error when key doesn't exist in dictionary
         for index in range(len(s)):
              s_dict[s[index]] = 1 + s_dict.get(s[index], 0) 
@@ -66,4 +73,15 @@ class Solution:
 
 
         return s_dict == t_dict
+    
+    # Approach 3
+    def isAnagram_v3(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(t)
+    
+    # Approach 4
+    def isAnagram_v4(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
+    
+    
+
           
